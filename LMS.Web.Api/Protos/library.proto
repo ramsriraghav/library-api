@@ -1,0 +1,85 @@
+﻿
+syntax = "proto3";
+
+option csharp_namespace = "LMS_grpc";
+
+service LibraryService {
+  rpc GetMostBorrowedBooks (MostBorrowedBooksRequest) returns (MostBorrowedBooksResponse);
+  rpc GetBookAvailability (BookAvailabilityRequest) returns (BookAvailabilityResponse);
+  rpc GetReadingRate (ReadingRateRequest) returns (ReadingRateResponse);
+  rpc GetTopBorrowers (TopBorrowersRequest) returns (TopBorrowersResponse);
+  rpc GetUserBorrowHistory (UserBorrowHistoryRequest) returns (UserBorrowHistoryResponse);
+  rpc GetRelatedBooks (RelatedBooksRequest) returns (RelatedBooksResponse);
+}
+
+message MostBorrowedBooksRequest {
+  int32 top_n = 1;
+}
+
+message MostBorrowedBook {
+  string title = 1;
+  int32 borrow_count = 2;
+}
+
+message MostBorrowedBooksResponse {
+  repeated MostBorrowedBook books = 1;
+}
+
+message BookAvailabilityRequest {
+  string book_id = 1;
+}
+
+message BookAvailabilityResponse {
+  string code = 1;
+  int32 total_copies = 2;
+  int32 available_copies = 3;
+}
+
+message ReadingRateRequest {
+  string book_id = 1;
+}
+
+message ReadingRateResponse {
+  double rate = 1;
+}
+
+message TopBorrowersRequest {
+  int32 top_n = 1;
+}
+
+message TopBorrower {
+  string full_name = 1;
+  int32 borrow_count = 2;
+}
+
+message TopBorrowersResponse {
+  repeated TopBorrower borrowers = 1;
+}
+
+message UserBorrowHistoryRequest {
+  string user_id = 1;
+}
+
+message UserBorrowHistory {
+  string book_title = 1;
+  string borrowed_at = 2;
+  string returned_at = 3;
+}
+
+message UserBorrowHistoryResponse {
+  repeated UserBorrowHistory history = 1;
+}
+
+message RelatedBooksRequest {
+  string book_id = 1;
+}
+
+message RelatedBook {
+  string id = 1;
+  string title = 2;
+  string author = 3;
+}
+
+message RelatedBooksResponse {
+  repeated RelatedBook books = 1;
+}
